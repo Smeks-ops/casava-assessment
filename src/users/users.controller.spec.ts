@@ -13,7 +13,6 @@ describe('UsersController', () => {
         {
           provide: UsersService,
           useValue: {
-            createAdmin: jest.fn(),
             createUser: jest.fn(),
           },
         },
@@ -28,27 +27,6 @@ describe('UsersController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('createAdmin', () => {
-    it('should create an admin and return a token', async () => {
-      const result = {
-        access_token: 'eyJhbGciOiJIUzI',
-      };
-
-      const payload = {
-        firstName: 'test',
-        lastName: 'test',
-        email: 'test@mail.com',
-        password: 'test_password',
-      };
-
-      jest.spyOn(service, 'createAdmin').mockImplementation(async () => result);
-
-      jest.enableAutomock();
-
-      expect(await controller.createAdmin(payload)).toEqual(result);
-    });
-  });
-
   describe('createUser', () => {
     it('should create a user and return a token', async () => {
       const result = {
@@ -56,8 +34,7 @@ describe('UsersController', () => {
       };
 
       const payload = {
-        firstName: 'test',
-        lastName: 'test',
+        name: 'test',
         email: 'test@mail.com',
         password: 'test_password',
       };
